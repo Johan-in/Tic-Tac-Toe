@@ -108,6 +108,7 @@ body {
     width: 100vw;
     height: 100vh;
     position: fixed; /* Stay in place */
+    
   }
   
   .modal {
