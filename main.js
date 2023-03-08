@@ -37,11 +37,41 @@ const initializeVariables = (data) => {
     data.gameOver = false;
 }
 
+const  addEventListenersToGameBoard = (data) => {
+    document.querySelectorAll('.box').forEach(box => {
+        box.addEventListener('click', (event) => {
+            playMove(event.target, data)
+        })
+    })
+}
+
 const initializeGame = (data) => {
     //initialize game  variables
     initializeVariables(data);
 
-    console.log(data);
+   
     //add  event listeners to the gameboard
-    
+    addEventListenersToGameBoard(data);
+};
+
+const playMove = (box,data) => {
+    //is game over? If game over,  don't  do anyhting
+    if (data.gameOver || data.round >=8) {
+        return
+    }
+    // check if the game box  has a latter  in it, if so, don't do anything
+    if(data.board[box.id] === "X" || data.board[box.id] === "O") {
+    return;
+    }
+
+    //adjust the DOM for player move, and then check win conditions
+
+    data.board[box.id] =  data.currentPlayer;
+    box.textContent = data.currentPlayer;
+    box.classList.add( data.currentPlayer === "X" ? "player1" : "player2");
+    //increase the round #
+    data.round++
+    console.log(box,data);
+
+    //check end  conditions
 };
