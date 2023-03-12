@@ -26,6 +26,15 @@ const winnigConditions = [
 ];
 
 const form = document.querySelector("#myForm");
+const newGameBtn = document.querySelector ('#restartBtn');
+
+const resetGameBtn = document.querySelector('#resetBtn')
+
+
+
+newGameBtn.addEventListener('click', () =>{
+    location.reload ();
+});
 
 form.addEventListener("submit", (event) => {
     //prevent page refresh
@@ -46,15 +55,27 @@ const initializeVariables = (data) => {
     data.round = 0;
     data.currentPlayer = "X";
     data.gameOver = false;
-}
+};
+
+const resetDom = () => {
+    document.querySelectorAll('.box').forEach(box => {
+        box.className = "box"
+        box.textContent = "";
+    });
+};
 
 const  addEventListenersToGameBoard = (data) => {
     document.querySelectorAll('.box').forEach(box => {
         box.addEventListener('click', (event) => {
             playMove(event.target, data)
-        })
+        });
+    });
+    resetGameBtn.addEventListener('click', () => {
+        initializeVariables(data);
+        resetDom();
+        adjustDom('displayTurn', `${data.player1Name}'s turn`)
     })
-}
+};
 
 const initializeGame = (data) => {
     //initialize game  variables
@@ -65,6 +86,7 @@ const initializeGame = (data) => {
    
     //add  event listeners to the gameboard
     addEventListenersToGameBoard(data);
+    
 };
 
 
